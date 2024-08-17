@@ -1,5 +1,8 @@
 [versions]
 agp = "8.5.0"
+annotationsApi = "6.0.53"
+grpcKotlinStub = "1.4.1"
+grpcProtobuf = "1.65.1"
 kotlin = "1.9.0"
 coreKtx = "1.13.1"
 junit = "4.13.2"
@@ -8,11 +11,18 @@ espressoCore = "3.6.1"
 lifecycleRuntimeKtx = "2.8.4"
 activityCompose = "1.9.1"
 composeBom = "2024.04.01"
-hilt = "2.44"
-jokesOnTheGo = "1.0.1-alpha"
+hilt = "2.48"
+jokesOnTheGo = "1.0.2-alpha"
+protobufJava = "4.27.3"
+protobufKotlin = "4.27.3"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+annotations-api = { module = "org.apache.tomcat:annotations-api", version.ref = "annotationsApi" }
+grpc-kotlin-stub = { module = "io.grpc:grpc-kotlin-stub", version.ref = "grpcKotlinStub" }
+grpc-okhttp = { module = "io.grpc:grpc-okhttp", version.ref = "grpcProtobuf" }
+grpc-protobuf = { module = "io.grpc:grpc-protobuf", version.ref = "grpcProtobuf" }
+grpc-stub = { module = "io.grpc:grpc-stub", version.ref = "grpcProtobuf" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -29,9 +39,11 @@ androidx-material3 = { group = "androidx.compose.material3", name = "material3" 
 hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt"}
 hilt-compiler = {group = "com.google.dagger", name="hilt-compiler", version.ref = "hilt"}
 jokes-on-the-go-client = { group = "io.github.stephen-bapple", name= "jokeservice-grpc-kotlin", version.ref = "jokesOnTheGo"}
+protobuf-java = { module = "com.google.protobuf:protobuf-java", version.ref = "protobufJava" }
+protobuf-kotlin = { module = "com.google.protobuf:protobuf-kotlin", version.ref = "protobufKotlin" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-hilt = { id = "com.google.dagger.hilt.android", version = "2.44" }
+hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 

@@ -1,3 +1,5 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
@@ -21,6 +23,10 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
+        val testingApiKey: String =
+            gradleLocalProperties(rootDir, providers).getProperty("testingApiKey")
+        resValue("string", "testing_api_key", testingApiKey)
     }
 
     buildTypes {
@@ -33,11 +39,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
     buildFeatures {
         compose = true
@@ -53,6 +59,19 @@ android {
 }
 
 dependencies {
+
+    // Java 9+ needs this: https://github.com/grpc/grpc-java/blob/master/README.md
+    compileOnly(libs.annotations.api)
+    // also https://github.com/grpc/grpc-java/blob/master/README.md
+    implementation(libs.grpc.okhttp)
+    // Kotlin
+    implementation(kotlin("stdlib"))
+    implementation(libs.grpc.kotlin.stub)
+    implementation(libs.grpc.protobuf)
+    implementation(libs.grpc.stub)
+    implementation(libs.protobuf.kotlin)
+    implementation(libs.protobuf.java)
+
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
     implementation(libs.androidx.core.ktx)
