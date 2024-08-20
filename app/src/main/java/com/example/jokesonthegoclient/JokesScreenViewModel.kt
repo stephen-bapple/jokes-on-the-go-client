@@ -16,17 +16,26 @@ class JokesScreenViewModel @Inject constructor(
 ): ViewModel() {
     private val _jokeResponse = MutableStateFlow<GetAnyRandomJokeResponse?>(null)
     val jokeResponse: StateFlow<GetAnyRandomJokeResponse?> = _jokeResponse
-    private val _isLoading = MutableStateFlow<Boolean>(false)
+    private val _isLoading = MutableStateFlow(false)
     val isLoading: StateFlow<Boolean> = _isLoading
+    private val _errored = MutableStateFlow(false)
+    val errored: StateFlow<Boolean> = _errored
 
     fun getRandomJoke() {
         viewModelScope.launch {
-            _isLoading.value = true
-            val res = rpcClient.getRandomJoke()
-            delay(500)
+            _errored.value = false
+            try {
+                _isLoading.value = true
+                val res = rpcClient.getRandomJoke()
+                delay(500)
 
-            _jokeResponse.value = res
-            _isLoading.value = false
+                _jokeResponse.value = res
+            } catch (e: Exception) {
+                _jokeResponse.value = null
+                _errored.value = true
+            } finally {
+                _isLoading.value = false
+            }
         }
     }
 }

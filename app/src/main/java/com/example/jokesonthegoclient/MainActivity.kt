@@ -33,6 +33,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -68,14 +69,16 @@ class MainActivity : ComponentActivity() {
 fun JokesScreen(viewModel: JokesScreenViewModel, modifier: Modifier = Modifier) {
     val theJoke by viewModel.jokeResponse.collectAsState()
     val isLoading by viewModel.isLoading.collectAsState()
-
+    val hasError by viewModel.errored.collectAsState()
     Column(
         modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        val jokeText = if (theJoke == null) {
+        val jokeText = if (theJoke == null && !hasError) {
             ">..."
+        } else if (hasError) {
+            "Error: Could not retrieve data from Joke Service"
         } else {
             "${theJoke?.joke?.setup}\n\n${theJoke?.joke?.punchline}"
         }
@@ -131,7 +134,7 @@ fun JokeRetrieverCard(
                 onClick = jokeUpdateFunc,
                 enabled = enabled,
                 shape = RoundedCornerShape(4.dp),
-                border = BorderStroke(1.dp, Color(0xFF252525)),
+                border = BorderStroke(1.dp, Color(0xEE339685)),
                 modifier = Modifier
                     .fillMaxWidth()
                     .align(alignment = Alignment.End)
@@ -154,7 +157,8 @@ fun JokeRetrieverCard(
                 ) {
                     if (enabled) {
                         Text(
-                            text = "Get a random joke"
+                            text = "Get Random Joke",
+                            fontWeight = FontWeight.Bold
                         )
                     } else {
                         CircularProgressIndicator(
