@@ -9,7 +9,7 @@ capabilities in a notable way; I found it incredibly easy to add event hooks and
 The code is entirely in app/src/main/java/com/example/jokesonthegoclient 
 (placeholder package will be replaced later) and includes the main activity (MainActivity.kt), 
 a view model for the joke retriever that leverages gRPC (JokesScreenViewModel.kt), 
-and a RPC module that leverages Hilt+Dagger to inject the RPC client as a singleton (RpcModule.kt).  
+and an RPC module that leverages Hilt+Dagger to inject the RPC client as a singleton (RpcModule.kt).
 
 ## Demo
 ![App and server interacting](./project-in-action.gif)
