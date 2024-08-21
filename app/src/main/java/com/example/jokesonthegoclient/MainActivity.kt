@@ -167,8 +167,6 @@ fun JokeRetrieverCard(
                                 .height(32.dp)
                                 .width(32.dp)
                         )
-                        Spacer(modifier = Modifier.width(8.dp))
-                        Text(text = "loading...")
                     }
                 }
             }
