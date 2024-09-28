@@ -1,5 +1,6 @@
 package com.example.jokesonthegoclient
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -31,6 +32,7 @@ class JokesScreenViewModel @Inject constructor(
 
                 _jokeResponse.value = res
             } catch (e: Exception) {
+                Log.e("ERROR", "Error: ${e.message}", e)
                 _jokeResponse.value = null
                 _errored.value = true
             } finally {
